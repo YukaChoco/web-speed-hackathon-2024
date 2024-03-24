@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { SvgIcon } from '../../../features/icons/components/SvgIcon';
 import { Box } from '../../../foundation/components/Box';
 import { Flex } from '../../../foundation/components/Flex';
-import { Image } from '../../../foundation/components/Image';
 import { Link } from '../../../foundation/components/Link';
 import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
@@ -12,6 +11,7 @@ import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useBook } from '../../book/hooks/useBook';
+import ImageWithSkeleton from '../../../foundation/components/ImageWithSkeleton';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -52,11 +52,9 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
       <_Link href={`/books/${book.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          {imageUrl != null && (
-            <_ImgWrapper>
-              <Image alt={book.name} height={96} objectFit="cover" src={imageUrl} width={96} />
-            </_ImgWrapper>
-          )}
+          <_ImgWrapper>
+            <ImageWithSkeleton alt={book.name} height={96} objectFit="cover" imageUrl={imageUrl} width={96} />
+          </_ImgWrapper>
           <Box width="100%">
             <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-start">
               <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
@@ -70,17 +68,16 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
             <Spacer height={Space * 1} />
 
             <Flex align="center" gap={Space * 1} justify="flex-end">
-              {authorImageUrl != null && (
-                <_AvatarWrapper>
-                  <Image
-                    alt={`${book.author.name}のアイコン`}
-                    height={32}
-                    objectFit="cover"
-                    src={authorImageUrl}
-                    width={32}
-                  />
-                </_AvatarWrapper>
-              )}
+              <_AvatarWrapper>
+                <ImageWithSkeleton
+                  alt={`${book.author.name}のアイコン`}
+                  height={32}
+                  objectFit="cover"
+                  imageUrl={authorImageUrl}
+                  width={32}
+                  isRounded
+                />
+              </_AvatarWrapper>
               <Text color={Color.MONO_80} typography={Typography.NORMAL12}>
                 {book.author.name}
               </Text>
