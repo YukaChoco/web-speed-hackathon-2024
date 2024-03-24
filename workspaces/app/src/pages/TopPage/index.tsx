@@ -22,6 +22,9 @@ const TopPage: React.FC = () => {
   const { data: release } = useRelease({ params: { dayOfWeek: todayStr } });
   const { data: featureList } = useFeatureList({ query: {} });
   const { data: rankingList } = useRankingList({ query: {} });
+  const featureLength = featureList.length;
+  const rankingLength = rankingList.length;
+  const releaseLength = release.books.length;
 
   const pickupA11yId = useId();
   const rankingA11yId = useId();
@@ -39,8 +42,14 @@ const TopPage: React.FC = () => {
           </Text>
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-            <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
-              {_.map(featureList, (feature) => (
+            <Flex
+              align="stretch"
+              direction="row"
+              gap={Space * 2}
+              justify="flex-start"
+              minWidth={346 * featureLength - 16}
+            >
+              {featureList.map((feature) => (
                 <FeatureCard key={feature.id} bookId={feature.book.id} />
               ))}
             </Flex>
@@ -54,9 +63,9 @@ const TopPage: React.FC = () => {
             ランキング
           </Text>
           <Spacer height={Space * 2} />
-          <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
+          <Box maxWidth="100%" overflowX="hidden" overflowY="hidden" minHeight={155 * rankingLength}>
             <Flex align="center" as="ul" direction="column" justify="center">
-              {_.map(rankingList, (ranking) => (
+              {rankingList.map((ranking) => (
                 <RankingCard key={ranking.id} bookId={ranking.book.id} />
               ))}
             </Flex>
@@ -71,7 +80,7 @@ const TopPage: React.FC = () => {
           </Text>
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
-            <Flex align="stretch" gap={Space * 2} justify="flex-start">
+            <Flex align="stretch" gap={Space * 2} justify="flex-start" minWidth={260 * releaseLength - 16}>
               {_.map(release.books, (book) => (
                 <BookCard key={book.id} bookId={book.id} />
               ))}
