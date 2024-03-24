@@ -42,5 +42,5 @@ export const useImage = ({ height, imageId, width }: { height: number; imageId: 
     return canvas.toDataURL('image/png');
   }, [height, imageId, width]);
 
-  return value;
+  return value === undefined ? null : value;
 };

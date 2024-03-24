@@ -11,7 +11,6 @@ import { EpisodeListItem } from '../../features/episode/components/EpisodeListIt
 import { useEpisodeList } from '../../features/episode/hooks/useEpisodeList';
 import { Box } from '../../foundation/components/Box';
 import { Flex } from '../../foundation/components/Flex';
-import { Image } from '../../foundation/components/Image';
 import { Link } from '../../foundation/components/Link';
 import { Separator } from '../../foundation/components/Separator';
 import { Spacer } from '../../foundation/components/Spacer';
@@ -20,6 +19,7 @@ import { useImage } from '../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
 
 import { BottomNavigator } from './internal/BottomNavigator';
+import ImageWithSkeleton from '../../foundation/components/ImageWithSkeleton';
 
 const _HeadingWrapper = styled.section`
   display: grid;
@@ -66,9 +66,7 @@ const BookDetailPage: React.FC = () => {
   return (
     <Box height="100%" position="relative" px={Space * 2}>
       <_HeadingWrapper aria-label="作品情報">
-        {bookImageUrl != null && (
-          <Image alt={book.name} height={256} objectFit="cover" src={bookImageUrl} width={192} />
-        )}
+        <ImageWithSkeleton alt={book.name} height={256} objectFit="cover" imageUrl={bookImageUrl} width={192} />
         <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-end">
           <Box>
             <Text color={Color.MONO_100} typography={Typography.NORMAL20} weight="bold">
@@ -83,11 +81,16 @@ const BookDetailPage: React.FC = () => {
           <Spacer height={Space * 1} />
 
           <_AuthorWrapper href={`/authors/${book.author.id}`}>
-            {auhtorImageUrl != null && (
-              <_AvatarWrapper>
-                <Image alt={book.author.name} height={32} objectFit="cover" src={auhtorImageUrl} width={32} />
-              </_AvatarWrapper>
-            )}
+            <_AvatarWrapper>
+              <ImageWithSkeleton
+                alt={book.author.name}
+                height={32}
+                objectFit="cover"
+                imageUrl={auhtorImageUrl}
+                width={32}
+                isRounded
+              />
+            </_AvatarWrapper>
             <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
               {book.author.name}
             </Text>
