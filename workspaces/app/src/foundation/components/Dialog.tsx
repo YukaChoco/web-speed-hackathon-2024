@@ -22,8 +22,7 @@ const _Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100% - ${Space * 8}px);
-  max-width: 480px;
+  width: 80vw;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 `;
 
